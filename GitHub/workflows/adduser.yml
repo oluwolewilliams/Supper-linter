@@ -1,0 +1,26 @@
+name: Assign User Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: 'GitHub username of the assignee'
+        required: true
+        type: string
+
+jobs:
+  assign-user:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print assigned user
+        run: |
+          echo "The workflow was triggered by ${{ github.actor }}"
+          echo "The assigned user is ${{ github.event.inputs.username }}"
+
+      - name: Perform an action for the assigned user
+        run: |
+          echo "Performing an action for ${{ github.event.inputs.username }}"
+          # Add your custom logic here
