@@ -1,0 +1,36 @@
+name: Super-Linter
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  super-linter:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Run Super-Linter
+      - name: Run Super-Linter
+        uses: github/super-linter@v5
+        env:
+          # Enable or disable specific linters
+          VALIDATE_ALL_CODEBASE: true # Lint all files in the repository
+          DEFAULT_BRANCH: main        # Set the default branch for comparison
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required for PR comments
+          VALIDATE_YAML: true         # Enable YAML linting
+          VALIDATE_JSON: true         # Enable JSON linting
+          VALIDATE_MARKDOWN: true     # Enable Markdown linting
+          VALIDATE_BASH: true         # Enable Bash linting
+          VALIDATE_PYTHON: true       # Enable Python linting
+          # Add more linters as needed
